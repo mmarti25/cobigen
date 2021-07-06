@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/com.devonfw.cobigen.eclipse.feature_0.0.0.jar" id="com.devonfw.cobigen.eclipse.feature" version="0.0.0">
+      <category name="com.devonfw.category"/>
+   </feature>
+   <category-def name="com.devonfw.category" label="Capgemini Development Tools"/>
+</site>

@@ -1,0 +1,99 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>com.devonfw.cobigen.eclipse</artifactId>
+  <name>CobiGen - Eclipse Plug-In</name>
+  <packaging>eclipse-plugin</packaging>
+
+  <parent>
+    <groupId>com.devonfw.cobigen</groupId>
+    <artifactId>eclipse-parent</artifactId>
+    <version>${revision}</version>
+  </parent>
+
+  <properties>
+    <license.skipAggregateDownloadLicenses>false</license.skipAggregateDownloadLicenses>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.devonfw.cobigen</groupId>
+      <artifactId>core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.devonfw.cobigen</groupId>
+      <artifactId>core-externalprocess-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.devonfw.cobigen</groupId>
+      <artifactId>javaplugin-model</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.ant</groupId>
+      <artifactId>ant-nodeps</artifactId>
+      <version>1.8.1</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.ant</groupId>
+          <artifactId>ant-launcher</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Maven Build -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <includeScope>runtime</includeScope>
+              <overWriteIfNewer>true</overWriteIfNewer>
+              <stripVersion>true</stripVersion>
+              <outputDirectory>${project.basedir}/lib</outputDirectory>
+              <markersDirectory>${project.basedir}/lib</markersDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.5</version>
+        <executions>
+          <execution>
+            <id>clean-dependencies</id>
+            <phase>clean</phase>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+            <configuration>
+              <filesets>
+                <fileset>
+                  <directory>lib</directory>
+                  <includes>
+                    <include>**/*</include>
+                  </includes>
+                </fileset>
+              </filesets>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
